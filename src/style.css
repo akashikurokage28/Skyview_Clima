@@ -1,0 +1,160 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Roboto, sans-serif;
+    text-decoration: none;
+    list-style: none;
+}
+
+:root{
+    --bg-color: #1A2729;
+    --primary-color: #FCFFFB;
+    --accent-color: #14E553;
+    --secondary-color: #BBD4D3;
+    --secondary-text-color: #3F6062;
+    --other-color: #91B7B7;
+
+    --box-shadow-eff: -2px -2px 5px #2F3F40, 2px 2px 5px #232F30;
+}
+
+body{
+    background: var(--bg-color);
+    color: var(--primary-color);
+}
+
+/* Main Container */
+.main-container{
+    width: 100%;
+    height: 100svh;
+}
+
+
+/* Navigation Bar */
+.nav-bar{
+    position: fixed;
+    width: 100%;
+    padding: 32px 24px 0px;
+    background: var(--bg-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+}
+
+.leftside-nav{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.leftside-nav #menu-bar{
+    font-size: 1rem;
+}
+
+.leftside-nav .logo{
+    font-family: Inter, sans-serif;
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: -0.0187rem;
+}
+
+.leftside-nav .logo span{
+    color: var(--accent-color);
+}
+
+.rightside-nav{
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: .625rem;
+}
+
+.rightside-nav .separator-line{
+    width: 1px;
+    height: 10px;
+    background: var(--primary-color);
+}
+
+
+/* Weather Dashboard */
+.weather-dashboard{
+    width: 100%;
+    height: 100%;
+    padding-top: calc(46px + 16px + 32px);
+}
+
+.dashboard-wrapper{
+    width: 100%;
+    height: 100%;
+    padding: 0 24px 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+.current-weather{
+    display: grid;
+    place-items: center;
+    gap: 8px;
+}
+
+.current-weather .text-greeting{
+    font-size: .75rem;
+}
+
+.current-weather h1{
+    font-family: Inter, sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.current-weather .weather-location{
+    font-size: 0.75rem;
+    font-weight: 300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+
+/* Weather Infobox */
+.weather-infobox{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.weather-infobox .info-box{
+    height: 110px;
+    padding: 16px;
+    background: var(--secondary-color);
+    color: var(--bg-color);
+    display: grid;
+    gap: 18px;
+    box-shadow: inset 0 0 0 2px var(--other-color);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.weather-infobox .info-box i{
+    font-size: 25px;
+}
+
+.weather-infobox .info-box .details{
+    display: grid;
+    gap: 4px;
+}
+
+.weather-infobox .info-box .details p{
+    font-size: .625rem;
+    color: var(--secondary-text-color);
+}
+
+.weather-infobox .info-box .details h1{
+    font-family: Inter, sans-serif ;
+    font-size: 1rem;
+    font-weight: 500;
+}

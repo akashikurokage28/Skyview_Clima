@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skyview Clima</title>
+
+    <!-- RemixIcon CDN Link -->
+     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <!-- Google Fonts Link -->
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS link -->
+     <link rel="stylesheet" href="./src/style.css">
+</head>
+<body>
+    <!-- Main Container -->
+     <main class="main-container">
+        <!-- Navigaion Bar -->
+         <nav class="nav-bar">
+            <li class="leftside-nav">
+                <i id="menu-bar" class="ri-menu-line"></i>
+                <h1 class="logo"><span>Skyview </span>Clima</h1>
+            </li>
+            <li class="rightside-nav">
+                <p class="date">August 08, 2025</p>
+                <div class="separator-line"></div>
+                <p class="time">04:30 PM</p>
+            </li>
+         </nav>
+
+         <section class="weather-dashboard">
+             <div class="dashboard-wrapper">
+                <div class="current-weather">
+                    <p class="text-greeting">Good Morning!</p>
+                    <h1 class="dashboard-temperature">36°C</h1>
+                    <p class="weather-location">
+                        <i class="ri-map-pin-fill"></i>
+                        <span>Manila, Philippines</span>
+                    </p>
+                </div>
+                <!-- Weather Info(Dashboard) -->
+                <div class="weather-infobox">
+
+                    <!-- Weather Status -->
+                    <div class="weather-status info-box">
+                        <i class="ri-sun-fill"></i>
+                        <div class="details">
+                            <p>Weather Status</p>
+                            <h1 id="weatherStatus-value">Sunny</h1>
+                        </div>
+                    </div>
+
+                    <!-- Visibility -->
+                    <div class="visibility info-box">
+                        <i class="ri-eye-fill"></i>
+                        <div class="details">
+                            <p>Visibility</p>
+                            <h1 id="visibility-value">8 km</h1>
+                        </div>
+                    </div>
+
+                    <!-- Air Pressure -->
+                    <div class="air-pressure info-box">
+                        <i class="ri-windy-fill"></i>
+                        <div class="details">
+                            <p>Air Pressure</p>
+                            <h1 id="airPressure-value">1012 hPa</h1>
+                        </div>
+                    </div>
+
+                    <!-- Humidity -->
+                    <div class="humidity info-box">
+                        <i class="ri-drop-fill"></i>
+                        <div class="details">
+                            <p>Humidity</p>
+                            <h1 id="humidity-value">70 %</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </section>
+     </main>
+
+
+
+
+    <!-- Javascript Script Link -->
+</body>
+</html>
