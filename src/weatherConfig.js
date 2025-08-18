@@ -29,11 +29,11 @@ function updateDateTime(){
     // Updating the text greetings(eg. Good morning!, Good Afternoon, and Good Evening)
     const textGreetings = document.querySelector(".text-greeting");
 
-    if(get24hour <= 12){
+    if(get24hour < 12){
         textGreetings.textContent = "Good Morning!";
-    } else if(get24hour >= 12){
+    } else if(get24hour < 18){
         textGreetings.textContent = "Good Afternoon!";
-    } else if(get24hour == 18){
+    } else {
         textGreetings.textContent = "Good Evening!";
     }
 }
@@ -51,28 +51,79 @@ setInterval(() => {
 
 // Variables
 const dashboardTemp = document.querySelector(".dashboard-temperature");
-const dashboardCity = document.querySelector(".dashboard-city");
+const sidebarTemp = document.querySelector(".sidebar-temp");
 const cityInput = document.getElementById("city-input");
 const cityInputBtn = document.querySelector(".city-input-btn");
-const getWeatherData = {};
 
 // API URL and API key
-const api = "b3d5b4a906d8fec941d49808cc265c6b";
-const apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput.value}&appid=${api}`;
+const apikey = "b3d5b4a906d8fec941d49808cc265c6b";
 
-async function fetchWeatherData(){
-    try{
-        const res = await fetch(apiURL);
-        const weatherData = await res.json();
-        console.log(weatherData);
-    } catch(error){
+function enterCityName(){
+    let cityName = cityInput.value.toLowerCase();
+    const apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apikey}`;
+    return apiURL;
+}
+
+cityInputBtn.addEventListener("click", async () => {
+    const loadApiUrl = enterCityName();
+    await getWeatherData(loadApiUrl);
+
+    // From Menubar.js~
+    overlayBlur.classList.remove("show");
+    sidebar.classList.remove("show");
+});
+
+async function getWeatherData(apiUrl){
+    try {
+        const response = await fetch(apiUrl);
+        const weatherInfo = await response.json();
+        console.log(weatherInfo);
+
+        // Fetch the country names before updating
+        const countryNames = await getFullCountryNames();
+
+        updateWeatherTemp(weatherInfo);
+        updateCountryNames(weatherInfo, countryNames);
+    } catch (error) {
+        console.error('There has been a problem with your fetch operation:', error);
+    }
+}
+
+
+// Update weather temp
+function updateWeatherTemp(weatherData){
+    let kelvinToCelcius = weatherData.main.temp - 273.15;
+    let roundedCelcius = Math.round(kelvinToCelcius);
+    dashboardTemp.textContent = roundedCelcius + "°C";
+    sidebarTemp.textContent = roundedCelcius + "°C";
+}
+
+
+
+// Update Dashboard city name
+const dashboardCity = document.querySelector(".dashboard-city");
+let countryNames = {};
+
+// Fetch the country names from the isoCountries.json
+async function getFullCountryNames(){
+    try {
+        const res = await fetch("./src/isoCountries.json");
+        const countryNameData = await res.json();
+        countryNames = countryNameData;
+        return countryNameData;
+
+    } catch (error) {
         console.error(error);
     }
 }
-fetchWeatherData();
 
 
-// Search city to get weather data
-cityInputBtn.addEventListener("click", () => {
-    dashboardCity.textContent = cityInput.value;
-});
+// Update Country names from the dashboard
+function updateCountryNames(weatherData, countryNames){
+     const weatherCountry = weatherData.sys.country;
+     const countryName = countryNames[weatherCountry];
+
+     if(countryName){
+        dashboardCity.textContent = weatherData.name + ", " + countryName;
+     }
+}
