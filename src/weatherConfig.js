@@ -101,7 +101,8 @@ async function getWeatherData(apiUrl){
         updateWeatherStatus(weatherInfo); // Update Weather Status
         updateWeatherVisibility(weatherInfo); // Update Weather Visibility 
         updateAirPressure(weatherInfo); // Update Air Pressure
-        updateHumidity(weatherInfo);
+        updateHumidity(weatherInfo); // Update Humidity
+        updateWindSpeedDirection(weatherInfo); // Update Wind Speed and Directions
     } catch (error) {
         console.error('There has been a problem with your fetch operation:', error);
     }
@@ -178,4 +179,29 @@ const humidity = document.getElementById("humidity-value");
 
 function updateHumidity(weatherData){
     humidity.textContent = weatherData.main.humidity + " %";
+}
+
+
+
+// Wind Direction and Speed update(Sidebar/Aside)
+const windSpeedDir = document.querySelector(".wind-speed-desc");
+
+function updateWindSpeedDirection(weatherData){
+    // Degrees To Cardinal Directions convertion
+    const cardinalDirections = [
+        "North", "Northeast", "East", "Southeast",
+        "South", "Southwest", "West", "Northwest"
+    ];
+
+    const normalizeDegrees = weatherData.wind.deg % 360;
+    const calculateDegToDir = Math.round(normalizeDegrees / 45) % 8; // Final Value for Converting Deg to Directions
+
+    
+    // Wind Speed Calculation
+    const metricToImperial = weatherData.wind.speed * 2.23694;
+    let getImperialUnit = metricToImperial.toFixed(2);
+
+
+    // Combine the two converted values
+    windSpeedDir.textContent = `${cardinalDirections[calculateDegToDir]}, ${getImperialUnit} mph`;
 }
