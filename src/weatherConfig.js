@@ -64,6 +64,7 @@ function enterCityName(){
     return apiURL;
 }
 
+// City Search Button
 cityInputBtn.addEventListener("click", async () => {
     const loadApiUrl = enterCityName();
     await getWeatherData(loadApiUrl);
@@ -73,17 +74,34 @@ cityInputBtn.addEventListener("click", async () => {
     sidebar.classList.remove("show");
 });
 
+cityInput.addEventListener("keydown", async (e) => {
+    if(e.key === "Enter"){
+        const loadApiUrl = enterCityName();
+        await getWeatherData(loadApiUrl);
+
+        // From Menubar.js~
+        overlayBlur.classList.remove("show");
+        sidebar.classList.remove("show");
+
+        e.preventDefault();
+    }
+})
+
+
 async function getWeatherData(apiUrl){
     try {
         const response = await fetch(apiUrl);
         const weatherInfo = await response.json();
         console.log(weatherInfo);
 
-        // Fetch the country names before updating
-        const countryNames = await getFullCountryNames();
+        const countryNames = await getFullCountryNames(); // Fetch the country names before updating
 
-        updateWeatherTemp(weatherInfo);
-        updateCountryNames(weatherInfo, countryNames);
+        updateWeatherTemp(weatherInfo); // Weather Temp Update
+        updateCountryNames(weatherInfo, countryNames); // Weather Country Update
+        updateWeatherStatus(weatherInfo); // Update Weather Status
+        updateWeatherVisibility(weatherInfo); // Update Weather Visibility 
+        updateAirPressure(weatherInfo); // Update Air Pressure
+        updateHumidity(weatherInfo);
     } catch (error) {
         console.error('There has been a problem with your fetch operation:', error);
     }
@@ -126,4 +144,38 @@ function updateCountryNames(weatherData, countryNames){
      if(countryName){
         dashboardCity.textContent = weatherData.name + ", " + countryName;
      }
+}
+
+
+// Weather Status Update
+const weatherHumidity = document.getElementById("weatherStatus-value");
+
+function updateWeatherStatus(weatherData){
+    const weatherDescription = weatherData.weather[0].description;
+    weatherHumidity.textContent = weatherDescription.charAt(0).toUpperCase() + weatherDescription.slice(1); // Makes the word capiltalize
+}
+
+
+// Visibility Update
+const visibility = document.getElementById("visibility-value");
+
+function updateWeatherVisibility(weatherData){
+    const meterToKm = weatherData.visibility / 1000;
+    visibility.textContent = meterToKm + " km"
+}
+
+
+// Air Pressure Update
+const airPressure = document.getElementById("airPressure-value");
+
+function updateAirPressure(weatherData){
+    airPressure.textContent = weatherData.main.pressure + " hPa";
+}
+
+
+// Humidity Update
+const humidity = document.getElementById("humidity-value");
+
+function updateHumidity(weatherData){
+    humidity.textContent = weatherData.main.humidity + " %";
 }

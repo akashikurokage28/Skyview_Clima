@@ -160,6 +160,10 @@ body{
     font-weight: 500;
 }
 
+.weather-infobox .info-box .details h1#weatherStatus-value{
+    font-size: .75rem;
+}
+
 
 /* Overlay Blur */
 .dashboard-overlay-blur{
