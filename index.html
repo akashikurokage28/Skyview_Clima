@@ -1,332 +1,380 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Skyview Clima</title>
 
     <!-- RemixIcon CDN Link -->
-     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
-    <!-- Google Fonts Link -->
-     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
 
-    <!-- Custom CSS link -->
-     <link rel="stylesheet" href="./src/style.css">
-</head>
-<body>
+    <!-- CSS Link -->
+    <link rel="stylesheet" href="./src/style.css" />
+  </head>
+  <body>
     <!-- Main Container -->
-     <main class="main-container">
-        <!-- Navigaion Bar -->
-         <nav class="nav-bar">
-            <li class="leftside-nav">
-                <i id="menu-bar" class="ri-menu-line"></i>
-                <h1 class="logo"><span>Skyview </span>Clima</h1>
+    <main class="main-container">
+      
+
+      <!-- Weather Dashboard -->
+      <section class="weather-dashboard-container">
+        <!-- Navigation Bar -->
+        <nav class="nav-bar">
+          <span class="left-side-nav">
+            <i class="ri-menu-2-fill" id="menubar"></i>
+            <h1 class="logo"><span>Skyview</span> Clima</h1>
+          </span>
+          <span class="right-side-nav">
+            <p id="nav-date">August 20, 2025</p>
+            <div class="nav-separator-line"></div>
+            <p id="nav-time">11:45 PM</p>
+          </span>
+        </nav>
+
+        <!-- "Please Search first" Message Container -->
+         <article class="search-message">
+          <div class="message">
+            <i class="ri-search-eye-line"></i>
+            <h1>Please search any city first</h1>
+          </div>
+         </article>
+
+        <!-- Weather Dashboard Contents -->
+        <article class="weather-dashboard-contents hide">
+          <div class="dashboard-weather-temp">
+            <h6 id="greetings">Good Morning!</h6>
+            <h1 id="dashboard-temp">36°C</h1>
+            <p class="dashboard-city">
+              <i class="ri-map-pin-fill"></i>
+              <span class="city-name">Manila, Philippines</span>
+            </p>
+          </div>
+
+          <!-- Weather Infobox -->
+          <ul class="weather-infobox">
+            <li class="infobox">
+              <i class="ri-sun-fill" id="weather-icon"></i>
+              <div class="weather-desc">
+                <p>Weather Status</p>
+                <h3 id="weather-status">Overcast Clouds</h3>
+              </div>
             </li>
-            <li class="rightside-nav">
-                <p class="date">August 08, 2025</p>
-                <div class="separator-line"></div>
-                <p class="time">04:30 PM</p>
+            <li class="infobox">
+              <i class="ri-eye-fill"></i>
+              <div class="weather-desc">
+                <p>Visibility</p>
+                <h3 id="weather-visibility">8 km</h3>
+              </div>
             </li>
-         </nav>
+            <li class="infobox">
+              <i class="ri-windy-fill"></i>
+              <div class="weather-desc">
+                <p>Air Pressure</p>
+                <h3 id="weather-air-pressure">1002 hPa</h3>
+              </div>
+            </li>
+            <li class="infobox">
+              <i class="ri-water-percent-fill"></i>
+              <div class="weather-desc">
+                <p>Humidity</p>
+                <h3 id="weather-humidity">79 %</h3>
+              </div>
+            </li>
+          </ul>
+        </article>
+      </section>
 
-         <section class="weather-dashboard">
-             <div class="dashboard-wrapper">
-                <div class="current-weather">
-                    <p class="text-greeting">Good Morning!</p>
-                    <h1 class="dashboard-temperature">36°C</h1>
-                    <p class="weather-location">
-                        <i class="ri-map-pin-fill"></i>
-                        <span class="dashboard-city">Manila, Philippines</span>
-                    </p>
-                </div>
-                <!-- Weather Info(Dashboard) -->
-                <div class="weather-infobox">
+      <!-- Dashboard Overlay blur -->
+      <div class="overlay-blur"></div>
 
-                    <!-- Weather Status -->
-                    <div class="weather-status info-box">
-                        <i class="ri-sun-fill"></i>
-                        <div class="details">
-                            <p>Weather Status</p>
-                            <h1 id="weatherStatus-value">Sunny</h1>
-                        </div>
-                    </div>
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-wrapper">
+          <!-- Search Bar Container -->
+          <div class="search-bar-container">
+            <input
+              type="text"
+              id="city-input"
+              placeholder="Search any city"
+              autocomplete="off"
+              autocapitalize="words"
+            />
+            <button id="submit-city-name">
+              <i class="ri-search-2-line"></i>
+            </button>
+          </div>
 
-                    <!-- Visibility -->
-                    <div class="visibility info-box">
-                        <i class="ri-eye-fill"></i>
-                        <div class="details">
-                            <p>Visibility</p>
-                            <h1 id="visibility-value">8 km</h1>
-                        </div>
-                    </div>
+          <!-- Sidebar Search Meassage -->
+           <div class="sidebar-search-message">
+            <p>There is no current city searched. Please search one.</p>
+           </div>
 
-                    <!-- Air Pressure -->
-                    <div class="air-pressure info-box">
-                        <i class="ri-windy-fill"></i>
-                        <div class="details">
-                            <p>Air Pressure</p>
-                            <h1 id="airPressure-value">1012 hPa</h1>
-                        </div>
-                    </div>
+          <!-- Sidebar Weather Temp -->
+          <div class="sidebar-weather-temp hide">
+            <h1 id="sidebar-temp">36°C</h1>
+            <span class="sidebar-wind-speed">
+              <i class="ri-windy-fill"></i>
+              <p id="wind-speed">Northeast, 9.55 mph</p>
+            </span>
+          </div>
 
-                    <!-- Humidity -->
-                    <div class="humidity info-box">
-                        <i class="ri-drop-fill"></i>
-                        <div class="details">
-                            <p>Humidity</p>
-                            <h1 id="humidity-value">70 %</h1>
-                        </div>
-                    </div>
-                </div>
-            </div>
-         </section>
+          <!-- 15 days Forcasts -->
+           <div class="fifty-days-forcast-wrapper hide">
+            <h3>15-Days Forcasts</h3>
 
-         <!-- Overlay Blur -->
-          <div class="dashboard-overlay-blur"></div>
+            <!-- Container -->
+             <ul class="fifty-days-container ">
+              <!-- Forcast Content -->
+              <li class="forcast-content">
+                <!-- left content -->
+                <span class="left-content">
+                  <i class="ri-sun-line"></i>
+                  <span class="weather-stat">
+                    <h6 class="weather-date">August 21, 2025</h6>
+                    <p class="status">Overcast Clouds</p>
+                  </span>
+                </span>
+                <!-- right content -->
+                <span class="right-content">
+                  <div class="line"></div>
+                  <h4 class="forcast-temp">25°C</h4>
+                </span>
+              </li>
 
-          <!-- Weather Sidebar -->
-           <aside class="weather-sidebar">
-            <!-- Search bar -->
-                <div class="search-bar-container">
-                    <div class="search-bar">
-                        <input type="text" id="city-input" placeholder="Search any city" autocomplete="off">
-                    </div>
-                    <button class="city-input-btn"><i class="ri-search-2-line"></i></button>
-                </div>
+              <li class="forcast-content">
+                <!-- left content -->
+                <span class="left-content">
+                  <i class="ri-sun-line"></i>
+                  <span class="weather-stat">
+                    <h6 class="weather-date">August 21, 2025</h6>
+                    <p class="status">Overcast Clouds</p>
+                  </span>
+                </span>
+                <!-- right content -->
+                <span class="right-content">
+                  <div class="line"></div>
+                  <h4 class="forcast-temp">25°C</h4>
+                </span>
+              </li>
 
-                <!-- Sidebar Weather Temp -->
-                <div class="sidebar-weather-temp">
-                    <h2 class="sidebar-temp">36°C</h2>
-                    <span class="sidebar-wind-speed">
-                        <i class="ri-windy-fill"></i>
-                        <p class="wind-speed-desc">Northeast, 55.6 mph</p>
-                    </span>
-                </div>
+              <li class="forcast-content">
+                <!-- left content -->
+                <span class="left-content">
+                  <i class="ri-sun-line"></i>
+                  <span class="weather-stat">
+                    <h6 class="weather-date">August 21, 2025</h6>
+                    <p class="status">Overcast Clouds</p>
+                  </span>
+                </span>
+                <!-- right content -->
+                <span class="right-content">
+                  <div class="line"></div>
+                  <h4 class="forcast-temp">25°C</h4>
+                </span>
+              </li>
+              <li class="forcast-content">
+                <!-- left content -->
+                <span class="left-content">
+                  <i class="ri-sun-line"></i>
+                  <span class="weather-stat">
+                    <h6 class="weather-date">August 21, 2025</h6>
+                    <p class="status">Overcast Clouds</p>
+                  </span>
+                </span>
+                <!-- right content -->
+                <span class="right-content">
+                  <div class="line"></div>
+                  <h4 class="forcast-temp">25°C</h4>
+                </span>
+              </li>
 
-                <!-- 15 day forcasts container-->
-                 <div class="fifteen-days-forcast-wrapper">
-                    <h6 class="forcast-title">15-Day Forcasts</h6>
-                     
-                    <!-- 15 day forcast contents -->
-                     <ul class="forcast-contents">
-                        <li class="weather-day">
-                            <span class="left-side">
-                                <i class="ri-sun-line"></i>
-                                <div class="forcast-date">
-                                    <h6 class="date">August 14, 2025</h6>
-                                    <p class="weather-stat">Sunny</p>
-                                </div>
-                            </span>
-                            <span class="right-side">
-                                <div class="forcast-separate-line"></div>
-                                <p class="forcast-temp">36°C</p>
-                            </span>
-                        </li>
+              <li class="forcast-content">
+                <!-- left content -->
+                <span class="left-content">
+                  <i class="ri-sun-line"></i>
+                  <span class="weather-stat">
+                    <h6 class="weather-date">August 21, 2025</h6>
+                    <p class="status">Overcast Clouds</p>
+                  </span>
+                </span>
+                <!-- right content -->
+                <span class="right-content">
+                  <div class="line"></div>
+                  <h4 class="forcast-temp">25°C</h4>
+                </span>
+              </li>
 
-                        <li class="weather-day">
-                            <span class="left-side">
-                                <i class="ri-sun-line"></i>
-                                <div class="forcast-date">
-                                    <h6 class="date">August 14, 2025</h6>
-                                    <p class="weather-stat">Sunny</p>
-                                </div>
-                            </span>
-                            <span class="right-side">
-                                <div class="forcast-separate-line"></div>
-                                <p class="forcast-temp">36°C</p>
-                            </span>
-                        </li>
+              <li class="forcast-content">
+                <!-- left content -->
+                <span class="left-content">
+                  <i class="ri-sun-line"></i>
+                  <span class="weather-stat">
+                    <h6 class="weather-date">August 21, 2025</h6>
+                    <p class="status">Overcast Clouds</p>
+                  </span>
+                </span>
+                <!-- right content -->
+                <span class="right-content">
+                  <div class="line"></div>
+                  <h4 class="forcast-temp">25°C</h4>
+                </span>
+              </li>
 
-                        <li class="weather-day">
-                            <span class="left-side">
-                                <i class="ri-sun-line"></i>
-                                <div class="forcast-date">
-                                    <h6 class="date">August 14, 2025</h6>
-                                    <p class="weather-stat">Sunny</p>
-                                </div>
-                            </span>
-                            <span class="right-side">
-                                <div class="forcast-separate-line"></div>
-                                <p class="forcast-temp">36°C</p>
-                            </span>
-                        </li>
+              <li class="forcast-content">
+                <!-- left content -->
+                <span class="left-content">
+                  <i class="ri-sun-line"></i>
+                  <span class="weather-stat">
+                    <h6 class="weather-date">August 21, 2025</h6>
+                    <p class="status">Overcast Clouds</p>
+                  </span>
+                </span>
+                <!-- right content -->
+                <span class="right-content">
+                  <div class="line"></div>
+                  <h4 class="forcast-temp">25°C</h4>
+                </span>
+              </li>
 
-                        <li class="weather-day">
-                            <span class="left-side">
-                                <i class="ri-sun-line"></i>
-                                <div class="forcast-date">
-                                    <h6 class="date">August 14, 2025</h6>
-                                    <p class="weather-stat">Sunny</p>
-                                </div>
-                            </span>
-                            <span class="right-side">
-                                <div class="forcast-separate-line"></div>
-                                <p class="forcast-temp">36°C</p>
-                            </span>
-                        </li>
+              <li class="forcast-content">
+                <!-- left content -->
+                <span class="left-content">
+                  <i class="ri-sun-line"></i>
+                  <span class="weather-stat">
+                    <h6 class="weather-date">August 21, 2025</h6>
+                    <p class="status">Overcast Clouds</p>
+                  </span>
+                </span>
+                <!-- right content -->
+                <span class="right-content">
+                  <div class="line"></div>
+                  <h4 class="forcast-temp">25°C</h4>
+                </span>
+              </li>
 
-                        <li class="weather-day">
-                            <span class="left-side">
-                                <i class="ri-sun-line"></i>
-                                <div class="forcast-date">
-                                    <h6 class="date">August 14, 2025</h6>
-                                    <p class="weather-stat">Sunny</p>
-                                </div>
-                            </span>
-                            <span class="right-side">
-                                <div class="forcast-separate-line"></div>
-                                <p class="forcast-temp">36°C</p>
-                            </span>
-                        </li>
+              <li class="forcast-content">
+                <!-- left content -->
+                <span class="left-content">
+                  <i class="ri-sun-line"></i>
+                  <span class="weather-stat">
+                    <h6 class="weather-date">August 21, 2025</h6>
+                    <p class="status">Overcast Clouds</p>
+                  </span>
+                </span>
+                <!-- right content -->
+                <span class="right-content">
+                  <div class="line"></div>
+                  <h4 class="forcast-temp">25°C</h4>
+                </span>
+              </li>
 
-                        <li class="weather-day">
-                            <span class="left-side">
-                                <i class="ri-sun-line"></i>
-                                <div class="forcast-date">
-                                    <h6 class="date">August 14, 2025</h6>
-                                    <p class="weather-stat">Sunny</p>
-                                </div>
-                            </span>
-                            <span class="right-side">
-                                <div class="forcast-separate-line"></div>
-                                <p class="forcast-temp">36°C</p>
-                            </span>
-                        </li>
+              <li class="forcast-content">
+                <!-- left content -->
+                <span class="left-content">
+                  <i class="ri-sun-line"></i>
+                  <span class="weather-stat">
+                    <h6 class="weather-date">August 21, 2025</h6>
+                    <p class="status">Overcast Clouds</p>
+                  </span>
+                </span>
+                <!-- right content -->
+                <span class="right-content">
+                  <div class="line"></div>
+                  <h4 class="forcast-temp">25°C</h4>
+                </span>
+              </li>
 
-                        <li class="weather-day">
-                            <span class="left-side">
-                                <i class="ri-sun-line"></i>
-                                <div class="forcast-date">
-                                    <h6 class="date">August 14, 2025</h6>
-                                    <p class="weather-stat">Sunny</p>
-                                </div>
-                            </span>
-                            <span class="right-side">
-                                <div class="forcast-separate-line"></div>
-                                <p class="forcast-temp">36°C</p>
-                            </span>
-                        </li>
+              <li class="forcast-content">
+                <!-- left content -->
+                <span class="left-content">
+                  <i class="ri-sun-line"></i>
+                  <span class="weather-stat">
+                    <h6 class="weather-date">August 21, 2025</h6>
+                    <p class="status">Overcast Clouds</p>
+                  </span>
+                </span>
+                <!-- right content -->
+                <span class="right-content">
+                  <div class="line"></div>
+                  <h4 class="forcast-temp">25°C</h4>
+                </span>
+              </li>
 
-                        <li class="weather-day">
-                            <span class="left-side">
-                                <i class="ri-sun-line"></i>
-                                <div class="forcast-date">
-                                    <h6 class="date">August 14, 2025</h6>
-                                    <p class="weather-stat">Sunny</p>
-                                </div>
-                            </span>
-                            <span class="right-side">
-                                <div class="forcast-separate-line"></div>
-                                <p class="forcast-temp">36°C</p>
-                            </span>
-                        </li>
+              <li class="forcast-content">
+                <!-- left content -->
+                <span class="left-content">
+                  <i class="ri-sun-line"></i>
+                  <span class="weather-stat">
+                    <h6 class="weather-date">August 21, 2025</h6>
+                    <p class="status">Overcast Clouds</p>
+                  </span>
+                </span>
+                <!-- right content -->
+                <span class="right-content">
+                  <div class="line"></div>
+                  <h4 class="forcast-temp">25°C</h4>
+                </span>
+              </li>
 
-                        <li class="weather-day">
-                            <span class="left-side">
-                                <i class="ri-sun-line"></i>
-                                <div class="forcast-date">
-                                    <h6 class="date">August 14, 2025</h6>
-                                    <p class="weather-stat">Sunny</p>
-                                </div>
-                            </span>
-                            <span class="right-side">
-                                <div class="forcast-separate-line"></div>
-                                <p class="forcast-temp">36°C</p>
-                            </span>
-                        </li>
+              <li class="forcast-content">
+                <!-- left content -->
+                <span class="left-content">
+                  <i class="ri-sun-line"></i>
+                  <span class="weather-stat">
+                    <h6 class="weather-date">August 21, 2025</h6>
+                    <p class="status">Overcast Clouds</p>
+                  </span>
+                </span>
+                <!-- right content -->
+                <span class="right-content">
+                  <div class="line"></div>
+                  <h4 class="forcast-temp">25°C</h4>
+                </span>
+              </li>
 
-                        <li class="weather-day">
-                            <span class="left-side">
-                                <i class="ri-sun-line"></i>
-                                <div class="forcast-date">
-                                    <h6 class="date">August 14, 2025</h6>
-                                    <p class="weather-stat">Sunny</p>
-                                </div>
-                            </span>
-                            <span class="right-side">
-                                <div class="forcast-separate-line"></div>
-                                <p class="forcast-temp">36°C</p>
-                            </span>
-                        </li>
+              <li class="forcast-content">
+                <!-- left content -->
+                <span class="left-content">
+                  <i class="ri-sun-line"></i>
+                  <span class="weather-stat">
+                    <h6 class="weather-date">August 21, 2025</h6>
+                    <p class="status">Overcast Clouds</p>
+                  </span>
+                </span>
+                <!-- right content -->
+                <span class="right-content">
+                  <div class="line"></div>
+                  <h4 class="forcast-temp">25°C</h4>
+                </span>
+              </li>
 
-                        <li class="weather-day">
-                            <span class="left-side">
-                                <i class="ri-sun-line"></i>
-                                <div class="forcast-date">
-                                    <h6 class="date">August 14, 2025</h6>
-                                    <p class="weather-stat">Sunny</p>
-                                </div>
-                            </span>
-                            <span class="right-side">
-                                <div class="forcast-separate-line"></div>
-                                <p class="forcast-temp">36°C</p>
-                            </span>
-                        </li>
+              <li class="forcast-content">
+                <!-- left content -->
+                <span class="left-content">
+                  <i class="ri-sun-line"></i>
+                  <span class="weather-stat">
+                    <h6 class="weather-date">August 21, 2025</h6>
+                    <p class="status">Overcast Clouds</p>
+                  </span>
+                </span>
+                <!-- right content -->
+                <span class="right-content">
+                  <div class="line"></div>
+                  <h4 class="forcast-temp">25°C</h4>
+                </span>
+              </li>
 
-                        <li class="weather-day">
-                            <span class="left-side">
-                                <i class="ri-sun-line"></i>
-                                <div class="forcast-date">
-                                    <h6 class="date">August 14, 2025</h6>
-                                    <p class="weather-stat">Sunny</p>
-                                </div>
-                            </span>
-                            <span class="right-side">
-                                <div class="forcast-separate-line"></div>
-                                <p class="forcast-temp">36°C</p>
-                            </span>
-                        </li>
+             </ul>
+           </div>          
+        </div>
+      </aside>
+    </main>
 
-                        <li class="weather-day">
-                            <span class="left-side">
-                                <i class="ri-sun-line"></i>
-                                <div class="forcast-date">
-                                    <h6 class="date">August 14, 2025</h6>
-                                    <p class="weather-stat">Sunny</p>
-                                </div>
-                            </span>
-                            <span class="right-side">
-                                <div class="forcast-separate-line"></div>
-                                <p class="forcast-temp">36°C</p>
-                            </span>
-                        </li>
-
-                        <li class="weather-day">
-                            <span class="left-side">
-                                <i class="ri-sun-line"></i>
-                                <div class="forcast-date">
-                                    <h6 class="date">August 14, 2025</h6>
-                                    <p class="weather-stat">Sunny</p>
-                                </div>
-                            </span>
-                            <span class="right-side">
-                                <div class="forcast-separate-line"></div>
-                                <p class="forcast-temp">36°C</p>
-                            </span>
-                        </li>
-
-                        <li class="weather-day">
-                            <span class="left-side">
-                                <i class="ri-sun-line"></i>
-                                <div class="forcast-date">
-                                    <h6 class="date">August 14, 2025</h6>
-                                    <p class="weather-stat">Sunny</p>
-                                </div>
-                            </span>
-                            <span class="right-side">
-                                <div class="forcast-separate-line"></div>
-                                <p class="forcast-temp">36°C</p>
-                            </span>
-                        </li>
-                     </ul>
-                 </div>
-           </aside>
-     </main>
-
-    <!-- Javascript Script Link -->
-     <script src="src/menubar.js"></script>
-     <script src="src/weatherConfig.js"></script>
-</body>
+    <!-- JavaScript Script File -->
+    <script src="./src/menubar.js"></script>
+    <script src="./src/weather_config.js"></script>
+  </body>
 </html>

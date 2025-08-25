@@ -1,6 +1,6 @@
 // Time and Date Variables
-const date = document.querySelector('.date');
-const time = document.querySelector(".time");
+const date = document.getElementById("nav-date");
+const time = document.getElementById("nav-time");
 
 // Get current date & time
 function updateDateTime(){
@@ -27,7 +27,7 @@ function updateDateTime(){
 
 
     // Updating the text greetings(eg. Good morning!, Good Afternoon, and Good Evening)
-    const textGreetings = document.querySelector(".text-greeting");
+    const textGreetings = document.getElementById("greetings");
 
     if(get24hour < 12){
         textGreetings.textContent = "Good Morning!";
@@ -46,14 +46,13 @@ setInterval(() => {
 
 
 
-
 // WEATHER DATA SEARCH UPDATE
 
 // Variables
-const dashboardTemp = document.querySelector(".dashboard-temperature");
-const sidebarTemp = document.querySelector(".sidebar-temp");
+const dashboardTemp = document.getElementById("dashboard-temp");
+const sidebarTemp = document.getElementById("sidebar-temp");
 const cityInput = document.getElementById("city-input");
-const cityInputBtn = document.querySelector(".city-input-btn");
+const cityInputBtn = document.getElementById("submit-city-name");
 
 // API URL and API key
 const apikey = "b3d5b4a906d8fec941d49808cc265c6b";
@@ -64,28 +63,46 @@ function enterCityName(){
     return apiURL;
 }
 
+async function handleCitySearch() {
+    const loadApiUrl = enterCityName();
+    const weatherInfo = await getWeatherData(loadApiUrl);
+
+    // Select elements
+    const weatherContents = document.querySelector(".weather-dashboard-contents");
+    const sidebarWeatherTemp = document.querySelector(".sidebar-weather-temp");
+    const sidebar15daysforcasts = document.querySelector(".fifty-days-forcast-wrapper");
+    const dashboardSearchMessage = document.querySelector(".search-message");
+    const sidebarSearchMessage = document.querySelector(".sidebar-search-message");
+
+    // Only show dashboard if weatherInfo is valid
+    if (weatherInfo && weatherInfo.cod === 200) {
+        weatherContents.classList.remove("hide");
+        sidebarWeatherTemp.classList.remove("hide");
+        sidebar15daysforcasts.classList.remove("hide");
+        dashboardSearchMessage.classList.add("hide");
+        sidebarSearchMessage.classList.add("hide");
+    }
+}
+
 // City Search Button
 cityInputBtn.addEventListener("click", async () => {
-    const loadApiUrl = enterCityName();
-    await getWeatherData(loadApiUrl);
+    overlayBlur.classList.remove("open");
+    sidebar.classList.remove("open");
+    await handleCitySearch();
 
-    // From Menubar.js~
-    overlayBlur.classList.remove("show");
-    sidebar.classList.remove("show");
+    if(cityInput.value === ""){
+        alert("Please search a city name");
+    }
 });
 
 cityInput.addEventListener("keydown", async (e) => {
-    if(e.key === "Enter"){
-        const loadApiUrl = enterCityName();
-        await getWeatherData(loadApiUrl);
-
-        // From Menubar.js~
-        overlayBlur.classList.remove("show");
-        sidebar.classList.remove("show");
-
+    if (e.key === "Enter") {
+        overlayBlur.classList.remove("open");
+        sidebar.classList.remove("open");
+        await handleCitySearch();
         e.preventDefault();
     }
-})
+});
 
 
 async function getWeatherData(apiUrl){
@@ -94,17 +111,24 @@ async function getWeatherData(apiUrl){
         const weatherInfo = await response.json();
         console.log(weatherInfo);
 
-        const countryNames = await getFullCountryNames(); // Fetch the country names before updating
+        // 200 response
+       if (weatherInfo.cod === 200) {
+            const countryNames = await getFullCountryNames(); // Fetch the country names before updating
+            updateWeatherTemp(weatherInfo);
+            updateCountryNames(weatherInfo, countryNames);
+            updateWeatherStatus(weatherInfo);
+            updateWeatherVisibility(weatherInfo);
+            updateAirPressure(weatherInfo);
+            updateHumidity(weatherInfo);
+            updateWindSpeedDirection(weatherInfo);
 
-        updateWeatherTemp(weatherInfo); // Weather Temp Update
-        updateCountryNames(weatherInfo, countryNames); // Weather Country Update
-        updateWeatherStatus(weatherInfo); // Update Weather Status
-        updateWeatherVisibility(weatherInfo); // Update Weather Visibility 
-        updateAirPressure(weatherInfo); // Update Air Pressure
-        updateHumidity(weatherInfo); // Update Humidity
-        updateWindSpeedDirection(weatherInfo); // Update Wind Speed and Directions
+        } else if(weatherInfo.cod === "404"){ //404 response
+            alert("Please enter the correct city name");
+        }
+        return weatherInfo;
     } catch (error) {
         console.error('There has been a problem with your fetch operation:', error);
+        return null;
     }
 }
 
@@ -120,13 +144,13 @@ function updateWeatherTemp(weatherData){
 
 
 // Update Dashboard city name
-const dashboardCity = document.querySelector(".dashboard-city");
+const dashboardCity = document.querySelector(".city-name");
 let countryNames = {};
 
 // Fetch the country names from the isoCountries.json
 async function getFullCountryNames(){
     try {
-        const res = await fetch("./src/isoCountries.json");
+        const res = await fetch("./src/iso_country.json");
         const countryNameData = await res.json();
         countryNames = countryNameData;
         return countryNameData;
@@ -149,16 +173,16 @@ function updateCountryNames(weatherData, countryNames){
 
 
 // Weather Status Update
-const weatherHumidity = document.getElementById("weatherStatus-value");
+const weatherStatus = document.getElementById("weather-status");
 
 function updateWeatherStatus(weatherData){
     const weatherDescription = weatherData.weather[0].description;
-    weatherHumidity.textContent = weatherDescription.charAt(0).toUpperCase() + weatherDescription.slice(1); // Makes the word capiltalize
+    weatherStatus.textContent = weatherDescription.charAt(0).toUpperCase() + weatherDescription.slice(1); // Makes the word capiltalize
 }
 
 
 // Visibility Update
-const visibility = document.getElementById("visibility-value");
+const visibility = document.getElementById("weather-visibility");
 
 function updateWeatherVisibility(weatherData){
     const meterToKm = weatherData.visibility / 1000;
@@ -167,7 +191,7 @@ function updateWeatherVisibility(weatherData){
 
 
 // Air Pressure Update
-const airPressure = document.getElementById("airPressure-value");
+const airPressure = document.getElementById("weather-air-pressure");
 
 function updateAirPressure(weatherData){
     airPressure.textContent = weatherData.main.pressure + " hPa";
@@ -175,7 +199,7 @@ function updateAirPressure(weatherData){
 
 
 // Humidity Update
-const humidity = document.getElementById("humidity-value");
+const humidity = document.getElementById("weather-humidity");
 
 function updateHumidity(weatherData){
     humidity.textContent = weatherData.main.humidity + " %";
@@ -184,7 +208,7 @@ function updateHumidity(weatherData){
 
 
 // Wind Direction and Speed update(Sidebar/Aside)
-const windSpeedDir = document.querySelector(".wind-speed-desc");
+const windSpeedDir = document.getElementById("wind-speed");
 
 function updateWindSpeedDirection(weatherData){
     // Degrees To Cardinal Directions convertion

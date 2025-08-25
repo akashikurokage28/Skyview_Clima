@@ -1,16 +1,18 @@
-// Menu bar Variable
-const menubar = document.getElementById("menu-bar");
-const sidebar = document.querySelector(".weather-sidebar");
-const overlayBlur = document.querySelector(".dashboard-overlay-blur");
+// Menu bar 
+const overlayBlur = document.querySelector(".overlay-blur");
+const sidebar = document.querySelector(".sidebar");
+const menubar = document.getElementById("menubar");
 
-// Open menubar
-menubar.addEventListener("click", () => {
-    overlayBlur.classList.toggle("show");
-    sidebar.classList.toggle("show");
+
+menubar.addEventListener("click", () => { // Open the menubar
+    sidebar.classList.toggle("open");
+    overlayBlur.classList.toggle("open");
 });
 
-// Close Menubar
-overlayBlur.addEventListener("click", () => {
-    overlayBlur.classList.remove("show");
-    sidebar.classList.remove("show");
-})
+overlayBlur.addEventListener("click", () => { // Close the menubar
+    sidebar.classList.remove("open");
+    overlayBlur.classList.remove("open");
+});
+
+
+
