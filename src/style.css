@@ -265,6 +265,7 @@ body{
     border-radius: 5px;
     font-size: .875rem;
     text-align: center;
+    cursor: pointer;
 }
 
 .search-bar-container button:focus{
