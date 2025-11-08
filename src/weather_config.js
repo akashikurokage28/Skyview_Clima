@@ -228,4 +228,4 @@ function updateWindSpeedDirection(weatherData){
 
     // Combine the two converted values
     windSpeedDir.textContent = `${cardinalDirections[calculateDegToDir]}, ${getImperialUnit} mph`;
-}
+} 

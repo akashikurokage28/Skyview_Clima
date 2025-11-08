@@ -13,6 +13,3 @@ overlayBlur.addEventListener("click", () => { // Close the menubar
     sidebar.classList.remove("open");
     overlayBlur.classList.remove("open");
 });
-
-
-
